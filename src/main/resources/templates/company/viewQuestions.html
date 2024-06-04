@@ -1,0 +1,61 @@
+<html xmlns="http://www.thymeleaf.org">
+<html>
+	<head th:replace="head::includes"></head>
+	
+<body>
+<headere th:replace="headers::header"></headere>
+		<div th:replace="companynav::companynav"></div>
+	<div style="overflow-x:auto;">
+    <div class="alert" th:if="${param.message != null}" style="padding: 20px; background-color:green; color: white; margin-bottom: 15px;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin-left: 15px; color: white; font-weight: bold; float: right; font-size: 22px; line-height: 20px; cursor: pointer; transition: 0.3s;">&times;</span>
+        <span th:text="${param.message}" style="color: white;"></span>
+    </div>
+</div>
+
+
+	<div class="table-responsive">
+		<h1 class="text text-center mt-3 mb-3 ">Questions Details</h1>
+		<table class="table table-sm  table-striped table-hover" >
+ 
+			<thead style="background-color: #E3AFE9;">
+				<tr class="text text-center">
+					<th scope="col">Question Id</th>
+					<th scope="col">Test Id</th>
+					<th scope="col">Vacancy Id</th>
+					<th scope="col">Question</th>
+					<th scope="col">Option1</th>
+					<th scope="col">Option2</th>
+					<th scope="col">Option3</th>
+					<th scope="col">Option4</th>
+					<th scope="col">Correct</th>
+					<th scope="col">Score</th>
+					<th scope="col">Edit</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody style="background-color: ghostwhite;color: black;">
+				<tr th:each="ques : ${quesList}" class="text-center">
+					<td th:text="${ques.questionId}"></td>
+					<td th:text="${ques.test.testId}"></td>
+					<td th:text="${ques.vacancy.vacancyId}"></td>
+					
+					<td th:text="${ques.question}"></td>
+					<td th:text="${ques.option1}"></td>
+					<td th:text="${ques.option2}"></td>
+					<td th:text="${ques.option3}"></td>
+					<td th:text="${ques.option4}"></td>
+					<td th:text="${ques.correct}"></td>
+					<td th:text="${ques.score}"></td>
+            		<td><a th:href="@{/company/editQuestions/{questionId}(questionId=${ques.questionId})}" class="btn btn-success" style="background-color: #E3AFE9;"><i class="bi bi-pen"></i></a></td>
+					<td><a th:href="@{/company/deleteQuestion/{questionId}(questionId=${ques.questionId})}" class="btn btn-danger" style="background-color: #E3AFE9;"><i class="bi bi-trash3"></i></a></td>
+
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+					<div th:replace="footer::foot" class="mt-4"></div>
+
+</body>
+
+</html>

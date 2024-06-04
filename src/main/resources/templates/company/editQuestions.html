@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head th:replace="head::includes"></head>
+<body>
+    <headere th:replace="headers::header"></headere>
+
+    <div class="container">
+        <div class="card mt-5 mb-5">
+            <h2 class="text text-center mt-3 mb-2" style="color: green;">Edit Questions Form</h2>
+            <form th:action="@{/company/updateQues}" th:object="${questions}" method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="questionId">QuestionId:</label>
+                            <input class="form-control" type="number" id="questionId" th:field="*{questionId}" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label for="vacancyId">TEST ID</label>
+                            <select class="form-control" id="testId" th:field="*{test.testId}">
+                                <option th:each="test: ${testList}" th:value="${test.testId}" th:text="${test.testId}" ></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vacancyId">Vacancy ID</label>
+                            <select class="form-control" id="vacancyId" th:field="*{vacancy.vacancyId}">
+                                <option th:each="vac: ${vacancyList}" th:value="${vac[0]}" th:text="${vac[0]}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title</label>
+                            <select class="form-control" id="jobTitle" disabled>
+                                <option th:each="vac: ${vacancyList}" th:value="${vac[1]}" th:text="${vac[1]}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="question">Question:</label>
+                            <input class="form-control" type="text" id="question" th:field="*{question}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="option1">Option 1:</label>
+                            <input class="form-control" type="text" id="option1" th:field="*{option1}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="option2">Option 2:</label>
+                            <input class="form-control" type="text" id="option2" th:field="*{option2}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="option3">Option 3:</label>
+                            <input class="form-control" type="text" id="option3" th:field="*{option3}" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="option4">Option 4:</label>
+                            <input class="form-control" type="text" id="option4" th:field="*{option4}" />
+                        </div>
+
+                       <div class="form-group">
+							<label for="correct">Correct Option:</label>
+							<select class="form-control" id="correct" name="correct" th:field="*{correct}" required>
+								<option value="">Select Correct Option</option>
+								<option th:each="option : ${#numbers.sequence(1, 4)}" th:value="${option}"
+									th:text="${option}"></option>
+							</select>
+						</div>
+
+                        <div class="form-group">
+                            <label for="score">Score:</label>
+                            <input class="form-control" type="text" id="score" th:field="*{score}" />
+                        </div>
+                    </div>
+                </div>
+               <center>
+
+								<button type="submit" class="btn btn-success mt-5 mb-3">Update</button>
+
+								<a href="#" onclick="history.back();" class="btn btn-danger" style="margin-top: 2rem;">Go Back</a>
+
+							</center>
+            </form>
+        </div>
+    </div>
+    <div th:replace="footer::foot" class="mt-4"></div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head th:replace="head::includes">
+    <link th:href="@{css/jobhome.css}" rel="stylesheet">
+    <style>
+        /* Add your custom styles here */
+    </style>
+</head>
+<body>
+    <headere th:replace="headers::header"></headere>
+    <div th:replace="jobseekernav::jobseekernav"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <img 
+                
+                th:src="@{http://3.108.237.172:8080/HireMeNow/uploads/{logo}(logo=${questionsList[0].vacancy.company.logo})}"
+                alt="Company Logo"
+                    class="img-thumbnail img-rounded mt-5" width="250" height="120">
+            </div>
+            <div class="col-sm-6 mt-5">
+                <center>
+                    <h1>Exam</h1>
+                    <div>
+                        <p>Company Name: <span th:text="${questionsList[0].vacancy.company.companyName}"></span></p>
+                        <p>Company Email: <span th:text="${questionsList[0].vacancy.company.email}"></span></p>
+                    </div>
+                    <!-- Display test duration -->
+                    <div>
+                        <p>Test Duration: <span id="timer" style="color: red;" th:text="${questionsList[0].test.testDuration}"></span></p>
+                    </div>
+                </center>
+            </div>
+        </div>
+
+        <hr>
+      <form id="testForm" th:action="@{/jobseeker/submitAnswer}" method="post">
+    <div th:each="question, questionStatus : ${questionsList}">
+        <div class="card" style="margin-bottom:20px;">
+            <div class="card-body">
+                <p th:text="${questionStatus.index + 1}" style="color: black;">Question Number</p>
+                <h5 style="color: black;" class="card-title" th:text="${question.question}"></h5>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio"
+                        th:name="'selectedOptions' + ${question.questionId}"
+                        th:id="'option1-' + ${question.questionId}" th:value="1">
+                    <label class="form-check-label" th:for="'option1-' + ${question.questionId}"
+                        th:text="${question.option1}"></label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio"
+                        th:name="'selectedOptions' + ${question.questionId}"
+                        th:id="'option2-' + ${question.questionId}" th:value="2">
+                    <label class="form-check-label" th:for="'option2-' + ${question.questionId}"
+                        th:text="${question.option2}"></label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio"
+                        th:name="'selectedOptions' + ${question.questionId}"
+                        th:id="'option3-' + ${question.questionId}" th:value="3">
+                    <label class="form-check-label" th:for="'option3-' + ${question.questionId}"
+                        th:text="${question.option3}"></label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio"
+                        th:name="'selectedOptions' + ${question.questionId}"
+                        th:id="'option4-' + ${question.questionId}" th:value="4">
+                    <label class="form-check-label" th:for="'option4-' + ${question.questionId}"
+                        th:text="${question.option4}"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+    </div>
+
+    <script>
+        // JavaScript code for countdown timer
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    submitTest();
+                }
+            }, 1000);
+        }
+
+        function submitTest() {
+            document.getElementById("testForm").submit();
+        }
+
+        window.onload = function () {
+            var duration = parseInt(document.getElementById("timer").innerText.split(':')[0]) * 60; // Convert duration to seconds
+            var display = document.querySelector('#timer');
+            startTimer(duration, display);
+        };
+    </script>
+</body>
+</html>

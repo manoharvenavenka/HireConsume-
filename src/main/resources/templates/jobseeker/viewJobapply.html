@@ -1,0 +1,75 @@
+<html xmlns="http://www.thymeleaf.org">
+<html>
+
+<head th:replace="head::includes">
+
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link th:href="@{css/jobhome.css}" rel="stylesheet">
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<headere th:replace="headers::header"></headere>
+	<div th:replace="jobseekernav::jobseekernav"></div>
+	<br>
+	<br>
+	<h1 class="text-center" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);background-color: green;color: aliceblue;">Your Applied Jobs</h1>
+	<br>
+	<br>
+
+	<div class="container">
+		<div class="row mb-5" th:each="job : ${jobapplyList}">
+
+			<div class="col-sm-6 d-flex justify-content-center align-items-center">
+				<div class="imgBx ">
+					<img th:src="@{http://3.108.237.172:8080/HireMeNow/uploads/{logo}(logo=${job.vacancy.company.logo})}"
+						class="img-rounded mb-5" style="max-width: 23rem; border-radius: 3rem;" alt="Lyte Image">
+				</div>
+			</div>
+		<div class="col-sm-6">
+    <div class="details mt-4">
+        <div class="content" style="padding-left: 1rem;">
+            <i>
+                <h2 class="company-name" th:text="${job.vacancy.company.companyName}"></h2>
+            </i>
+            <h2><span th:text="${job.vacancy.jobTitle}"></span></h2>
+            <h4>Description:</h4>
+            <p th:text="${job.vacancy.description}" style="color: #129acc"></p>
+            <h4>Requirements:<span th:text="${job.vacancy.requirements}" style="color: #129acc"></span></h4>
+            <h4>Location:<span style="color: #129acc"
+                    th:text="${job.vacancy.company.state + ', ' + job.vacancy.company.city + ', ' + job.vacancy.company.location +'.'}"></span>
+            </h4>
+            <h5>Mobile:<span style="color: #129acc" th:text="${job.vacancy.company.mobile}"></span></h5>
+            <h5>For More Info Visit:<span style="color: #129acc" th:text="${job.vacancy.company.url}"></span></h5>
+            <p>Vacancies:&nbsp;<span style="color: rgb(255, 0, 0)"
+                    th:text="${job.vacancy.noOfVacancies}"></span>
+            </p>
+            <p>Open Date:<span style="color: green" th:text="${job.vacancy.openDate}"></span></p>
+            <p>Close Date:<span style="color: rgb(229, 74, 74);" th:text="${job.vacancy.closeDate}"></span></p>
+            <p>Status: <span style="color: rgb(64, 143, 240);" th:text="${job.status}"></span></p>
+
+            <div class="text-center">
+                <div class="mt-3">
+                    <a th:if="${job.status == 'OnProgress'}"
+                        th:href="@{/jobseeker/Exam/{vacancyId}(vacancyId=${job.vacancy.vacancyId})}"
+                        class="btn btn-danger" style="border-radius:20px;">Take Exam</a>
+                    <button th:if="${job.status != 'OnProgress'}" class="btn btn-success"
+                        style="border-radius:20px;" disabled>Take Exam</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="mt-4">
+</div>
+
+		</div>
+
+	</div>
+
+
+	<div th:replace="footer::foot" class="mt-4"></div>
+</body>
+
+</html>

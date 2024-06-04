@@ -1,0 +1,62 @@
+<html xmlns="http://www.thymeleaf.org">
+<html>
+
+<head th:replace="head::includes">
+
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<headere th:replace="headers::header"></headere>
+	<div th:replace="jobseekernav::jobseekernav"></div>
+<div style="overflow-x:auto;">
+    <div class="alert" th:if="${param.message != null}" style="padding: 20px; background-color: #70c22b; color: white; margin-bottom: 15px;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin-left: 15px; color: white; font-weight: bold; float: right; font-size: 22px; line-height: 20px; cursor: pointer; transition: 0.3s;">&times;</span>
+        <span th:text="${param.message}" style="color: white;"></span>
+    </div>
+</div>
+
+
+	<div class="table-responsive">
+		<h1 class="text text-center mt-3 mb-3 ">Document Details</h1>
+		<table class="table table-sm table-info table-striped table-hover">
+
+			<thead>
+				<tr class="text text-center">
+					<th scope="col">Document Id</th>
+					<th scope="col">User Id</th>
+					<th scope="col">Document Type</th>
+					<th scope="col">File</th>
+					<th scope="col">Edit</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="doc : ${documentsList}" class="text-center">
+					<td th:text="${doc.docId}"></td>
+					<td th:text="${doc.jobsekers.userId}"></td>
+					<td th:text="${doc.documentType}"></td>
+					<td>
+						<a th:href="@{http://3.108.237.172:8080/HireMeNow/uploads/{documentFile}(documentFile=${doc.documentFile})}"
+							class="btn btn-success" download><i class="bi bi-file-earmark-arrow-down"></i></a>
+					</td>
+					<td><a th:href="@{/jobseeker/editDoc/{docId}(docId=${doc.docId})}" class="btn btn-info"><i class="bi bi-pen"></i></a></td>
+					<td><a th:href="@{/jobseeker/deleteDocuments/{docId}(docId=${doc.docId})}" class="btn btn-danger"><i
+								class="bi bi-trash3"></i></a></td>
+				</tr>
+				
+
+			</tbody>
+		</table>
+	</div>
+	
+	
+	
+	
+	<div th:replace="footer::foot" class="mt-4"></div>
+
+</body>
+
+</html>

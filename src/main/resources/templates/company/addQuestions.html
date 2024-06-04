@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head th:replace="head::includes"></head>
+
+<body>
+	<headere th:replace="headers::header"></headere>
+	<div th:replace="companynav::companynav"></div>
+	<div class="container">
+		<div class="card mt-5 mb-5">
+			<h2 class="text text-center" style="color: black;">Questions Form</h2>
+			<span style="color: red;">*Dear Company Members Please Check The VacancyId And TestId For Your
+				Questions</span>
+
+			<form th:action="@{/company/addingQuestions}" th:object="${questions}" method="post">
+				<div style="overflow-x:auto;">
+					<div class="alert" th:if="${param.message != null}"
+						style="padding: 20px; background-color: green; color: white; margin-bottom: 15px;">
+						<span class="closebtn" onclick="this.parentElement.style.display='none';"
+							style="margin-left: 15px; color: white; font-weight: bold; float: right; font-size: 22px; line-height: 20px; cursor: pointer; transition: 0.3s;">&times;</span>
+						<span th:text="${param.message}" style="color: white;"></span>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="vacancyId">Test ID</label>
+							<select class="form-control" id="testId" th:field="*{test.testId}">
+								<option th:each="test: ${testList}" th:value="${test.testId}" th:text="${test.testId}">
+								</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="vacancyId">Vacancy ID</label>
+							<select class="form-control" id="vacancyId" th:field="*{vacancy.vacancyId}">
+								<option th:each="vac: ${vacancyList}" th:value="${vac[0]}" th:text="${vac[0]}"></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="jobTitle">Job Title</label>
+							<select class="form-control" id="jobTitle">
+								<option th:each="vac: ${vacancyList}" th:value="${vac[1]}" th:text="${vac[1]}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="question">Question:</label>
+							<input class="form-control" type="text" id="question" th:field="*{question}" />
+						</div>
+
+						<div class="form-group">
+							<label for="option1">Option 1:</label>
+							<input class="form-control" type="text" id="option1" th:field="*{option1}" />
+						</div>
+
+						<div class="form-group">
+							<label for="option2">Option 2:</label>
+							<input class="form-control" type="text" id="option2" th:field="*{option2}" />
+						</div>
+
+						<div class="form-group">
+							<label for="option3">Option 3:</label>
+							<input class="form-control" type="text" id="option3" th:field="*{option3}" />
+						</div>
+
+						<div class="form-group">
+							<label for="option4">Option 4:</label>
+							<input class="form-control" type="text" id="option4" th:field="*{option4}" />
+						</div>
+
+						<div class="form-group">
+							<label for="correct">Correct Option:</label>
+							<select class="form-control" id="correct" name="correct" th:field="*{correct}" required>
+								<option value="">Select Correct Option</option>
+								<option th:each="option : ${#numbers.sequence(1, 4)}" th:value="${option}"
+									th:text="${option}"></option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="score">Score:</label>
+							<input class="form-control" type="number" id="score" th:field="*{score}" required />
+						</div>
+					</div>
+				</div>
+				<center>
+					<button type="submit" class="btn btn-warning mt-5 mb-5">Submit</button>
+				</center>
+			</form>
+		</div>
+		<div th:replace="footer::foot" class="mt-4"></div>
+	</div>
+</body>
+
+</html>

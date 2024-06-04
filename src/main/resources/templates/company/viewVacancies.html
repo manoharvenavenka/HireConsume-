@@ -1,0 +1,51 @@
+<html xmlns="http://www.thymeleaf.org">
+<head th:replace="head::includes"></head>
+
+<body>
+<div class="container-fluid">
+    <header th:replace="headers::header"></header>
+    <div th:replace="companynav::companynav"></div>
+
+    <div class="overflow-x-auto">
+        <div class="alert" th:if="${param.message != null}" style="padding: 20px; background-color: green; color: white; margin-bottom: 15px;">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin-left: 15px; color: white; font-weight: bold; float: right; font-size: 22px; line-height: 20px; cursor: pointer; transition: 0.3s;">&times;</span>
+            <span th:text="${param.message}" style="color: white;"></span>
+        </div>
+    </div>
+
+    <h1 class="text text-center mt-3 mb-3">Vacancy Details</h1>
+    <div class="table-responsive">
+        <table class="table table-sm table-striped table-hover" style="border-radius: 10px;">
+            <thead style="background-color: rgb(191, 129, 98); color: white;">
+            <tr class="text-center">
+                <th scope="col">Vacancy Id</th>
+                <th scope="col">Job Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Requirements</th>
+                <th scope="col">No.Of.Vacancies</th>
+                <th scope="col">Open Date</th>
+                <th scope="col">Close Date</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody style="background-color: rgb(255, 236, 240); color: black;">
+            <tr th:each="vacancy : ${vacancylist}" class="text-center">
+                <td th:text="${vacancy.vacancyId}"></td>
+                <td th:text="${vacancy.jobTitle}"></td>
+                <td th:text="${vacancy.description}"></td>
+                <td th:text="${vacancy.requirements}"></td>
+                <td th:text="${vacancy.noOfVacancies}"></td>
+                <td th:text="${vacancy.openDate}"></td>
+                <td th:text="${vacancy.closeDate}"></td>
+
+                <td><a th:href="@{/company/editVacancy/{vacancyId}(vacancyId=${vacancy.vacancyId})}" class="btn btn-success" style="background-color: rgb(191, 129, 98); color: white;"><i class="bi bi-pen"></i></a></td>
+                <td><a th:href="@{/company/deletevacancy/{vacancyId}(vacancyId=${vacancy.vacancyId})}" class="btn btn-danger" style="background-color: rgb(191, 129, 98); color: white;"><i class="bi bi-trash3"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div th:replace="footer::foot" class="mt-4"></div>
+</body>
+</html>

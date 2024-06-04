@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head th:replace="head::includes">
+
+</head>
+
+<body>
+    <header th:replace="headers::header"></header>
+    <div th:replace="companynav::companynav"></div>
+    <div class="container mt-5 mb-5">
+        <h1 class="text text-center">Selected Candidates</h1>
+        <div class="table-responsive">
+            <table class="table" style="border-radius: 1.2rem;">
+                <thead style="background-color: cornflowerblue;color: aliceblue;">
+                    <tr>
+                        <th>ID</th>
+                        <th>Vacancy ID</th>
+                        <th>Company Name</th>
+                        <th>Job Title</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>Qualifications</th>
+                        <th>Experience</th>
+                    </tr>
+                </thead>
+                <tbody style="background-color: aliceblue;color: black;">
+                    <!-- Iterate over selectedList and populate table rows -->
+                    <tr th:each="selected : ${selectedList}">
+                        <td th:text="${selected.id}"></td>
+                        <td th:text="${selected.vacancy.vacancyId}"></td>
+                        <td th:text="${selected.vacancy.company.companyName}"></td>
+                        <td th:text="${selected.vacancy.jobTitle}"></td>
+                        <td th:text="${selected.score}"></td>
+                        <td th:text="${selected.status}"></td>
+                        <td th:text="${selected.jobSekers.firstName}"></td>
+                        <td th:text="${selected.jobSekers.lastName}"></td>
+                        <td th:text="${selected.jobSekers.email}"></td>
+                        <td th:text="${selected.jobSekers.mobile}"></td>
+                        <td th:text="${selected.jobSekers.address}"></td>
+                        <td th:text="${selected.jobSekers.qualifications}"></td>
+                        <td th:text="${selected.jobSekers.experience}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:replace="footer::foot" class="mt-4"></div>
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+<html xmlns="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hire Me Now</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Netflix+Sans&display=swap">
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        #mainNav  a{
+            color: black;
+        }
+    </style>
+	<body>
+
+ <header class="site-header  py-1">
+        <nav class="navbar navbar-expand-lg navbar-dark p-3 " id="mainNav">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                <img th:src="@{/images/Hirelogo.jpeg}" style="margin-left: 4rem;" class="img img-sm img-fluid rounded-circle"  >
+              </a>
+              <button class="navbar-toggler"  style="background-color: rgb(7, 7, 8);" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+          
+              <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ms-auto ">
+                  <li class="nav-item">
+                    <a class="nav-link mx-2 active" aria-current="page" th:href="@{index}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2 active" aria-current="page" th:href="@{About}">About</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2"  th:href="@{Contact}">Contact</a>
+                  </li>
+                 
+                  <li class="nav-item dropdown">
+                    <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Logins
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" th:href="@{admin/adminHome}">Admin</a></li>
+                      <li><a class="dropdown-item" th:href="@{company/companyHome}">Company</a></li>
+                      <li><a class="dropdown-item" th:href="@{jobseeker/jobHome}">JobSeekers</a></li>
+                    </ul>
+                  </li>
+                 
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+<div class="container mb-5">
+  <form  th:action="@{/addingJobsekers}" th:object="${jobsekers}" method="post" enctype="multipart/form-data">
+    <div class="card ">
+        
+        <div class="card-body mt-5">
+          <h3 class="text text-center text-primary mb-4">Registration Form</h3>
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" class="form-control" name="firstName" th:field="*{firstName}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" class="form-control" name="lastName" th:field="*{lastName}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="dateOfBirth">Date of Birth:</label>
+          <input type="date" class="form-control" name="dateofbirth" th:field="*{dateofbirth}" required>
+        </div>
+
+        <div class="form-group">
+          <label>Gender:</label>
+          <div class="form-check">
+            <input type="radio" class="form-check-input" name="gender" id="r1" th:field="*{gender}" value="male">
+            <label class="form-check-label" for="male">Male</label>
+          </div>
+          <div class="form-check">
+            <input type="radio" class="form-check-input" name="gender" id="r1" th:field="*{gender}" value="female">
+            <label class="form-check-label" for="female">Female</label>
+          </div>
+          <div class="form-check">
+            <input type="radio" class="form-check-input" name="gender" id="r1" th:field="*{gender}" value="other">
+            <label class="form-check-label" for="other">Other</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" name="email" th:field="*{email}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="mobile">Mobile:</label>
+          <input type="tel" class="form-control" name="mobile" th:field="*{mobile}" pattern="[0-9]{10}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <textarea class="form-control" name="address" th:field="*{address}" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" name="password" 
+           oninput="checkPasswordStrength(this.value)" th:field="*{password}" required>
+        </div>
+<div id="password-strength"></div>
+
+				<div class="form-outline mb-4">
+					<label class="form-label" for="password">Confirm-Password:</label>
+					<input type="password" id="cpassword" oninput="validatePasswords(this.value)" class="form-control">
+					<div id="cpwdLabel"></div>
+				</div>
+				<script>
+					function checkPasswordStrength(password) {
+						// Define your password strength criteria and calculations here
+						// This is a simple example, you can modify it based on your requirements
+
+						var strength = 0;
+
+						// Check the length of the password
+						if (password.length >= 8) {
+							strength += 1;
+						}
+
+						// Check if the password contains both uppercase and lowercase characters
+						if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
+							strength += 1;
+						}
+
+						// Check if the password contains at least one number
+						if (/\d/.test(password)) {
+							strength += 1;
+						}
+
+						// Check if the password contains at least one special character
+						if (/[$&+,:;=?@#|'<>.^*()%!-]/.test(password)) {
+							strength += 1;
+						}
+
+						// Display the password strength
+						var strengthText = "";
+						switch (strength) {
+							case 0:
+							case 1:
+								strengthText = "Weak";
+								break;
+							case 2:
+								strengthText = "Moderate";
+								break;
+							case 3:
+							case 4:
+								strengthText = "Strong";
+								break;
+						}
+
+						document.getElementById("password-strength").innerHTML = "Password Strength: " + strengthText;
+						if (strengthText == "Weak") {
+							document.getElementById("password-strength").style.color = 'red';
+						} else if (strengthText == "Moderate") {
+							document.getElementById("password-strength").style.color = 'blue';
+						} else if (strengthText == "Strong") {
+							document.getElementById("password-strength").style.color = 'green';
+						}
+					}
+
+
+
+					function validatePasswords(cpassword) {
+						var cpwd = document.getElementById("password").value;
+						if (cpassword == cpwd) {
+							document.getElementById("cpwdLabel").innerHTML = "Passwords match";
+							document.getElementById("cpwdLabel").style.color = "green";
+						} else {
+							document.getElementById("cpwdLabel").innerHTML = "Passwords not match";
+							document.getElementById("cpwdLabel").style.color = "red";
+						}
+
+					}
+
+				</script>
+
+        <div class="form-group">
+          <label for="profilePic">Profile Picture:</label>
+          <input type="file" class="form-control" name="profilePic1" >
+        </div>
+
+        <div class="form-group">
+          <label for="qualifications">Qualifications:</label>
+          <select class="form-control" name="qualifications" th:field="*{qualifications}" required>
+            <option value="">Select Qualifications</option>
+            <option value="10th">10th</option>
+            <option value="Btech">Btech</option>
+            <option value="Graduated">Graduated</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="experience">Experience:</label>
+          <input type="text" class="form-control" name="experience" th:field="*{experience}">
+        </div>
+
+        <center>
+	
+            <button type="submit" class="btn btn-primary mt-3">Submit</button><br>
+            <br>
+            <a th:href="@{/}" class="btn btn-warning mt-4">Back To Login</a>
+</center>
+      </div>
+    </div>
+  </form>
+</div>
+				<div th:replace="footer::foot" class="mt-4"></div>
+
+</body>
+</html>

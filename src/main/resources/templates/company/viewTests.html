@@ -1,0 +1,57 @@
+<html xmlns="http://www.thymeleaf.org">
+
+<head th:replace="head::includes">
+    <style>
+        h1 {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+<headere th:replace="headers::header"></headere>
+<div th:replace="companynav::companynav"></div>
+
+<div class="container-fluid">
+    <div class="table-responsive">
+        <div style="overflow-x:auto;">
+            <div class="alert" th:if="${param.message != null}" style="padding: 20px; background-color: lightskyblue; color: white; margin-bottom: 15px;">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin-left: 15px; color: white; font-weight: bold; float: right; font-size: 22px; line-height: 20px; cursor: pointer; transition: 0.3s;">&times;</span>
+                <span th:text="${param.message}" style="color: white;"></span>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h1 class="text-center mt-3 mb-3">Test Details</h1>
+                <table class="table table-sm table-striped table-hover">
+                    <thead style="background-color: #3CBDE3;">
+                    <tr class="text-center">
+                        <th scope="col">Test Id</th>
+                        <th scope="col">Test Date</th>
+                        <th scope="col">Test duration</th>
+                        <th scope="col">Vacancy Id</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody style="background-color: #CACACA;">
+                    <tr th:each="test : ${testList}" class="text-center">
+                        <td th:text="${test.testId}"></td>
+                        <td th:text="${test.testDate}"></td>
+                        <td th:text="${test.testDuration}"></td>
+                        <td th:text="${test.vacancy.vacancyId}"></td>
+                        <td><a th:href="@{/company/editTest/{testId}(testId=${test.testId})}" style="background-color: #3CBDE3;" class="btn btn-success"><i class="bi bi-pen"></i></a></td>
+                        <td><a th:href="@{/company/deletetest/{testId}(testId=${test.testId})}" style="background-color: #3CBDE3;" class="btn btn-danger"><i class="bi bi-trash3"></i></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer::foot" class="mt-4"></div>
+
+</body>
+
+</html>

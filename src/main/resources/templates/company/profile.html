@@ -1,0 +1,192 @@
+<html xmlns="http://www.thymeleaf.org">
+<html>
+
+<head th:replace="head::includes">
+	<link th:href="@{/css/prof.css}" rel="stylesheet">
+
+</head>
+
+<body>
+	<header th:replace="headers::header"></header>
+	<div th:replace="companynav::companynav"></div>
+<div style="overflow-x:auto;">
+    <div class="alert" th:if="${param.message != null}" style="padding: 20px; background-color:#41cff5; color: white; margin-bottom: 15px;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin-left: 15px; color: white; font-weight: bold; float: right; font-size: 22px; line-height: 20px; cursor: pointer; transition: 0.3s;">&times;</span>
+        <span th:text="${param.message}" style="color: white;"></span>
+    </div>
+</div>
+
+
+	<section class="vh-100">
+		<div class="container py-5 h-100">
+			<div class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col col-lg-6 mb-4 mb-lg-0">
+					<div class="card mb-3" style="border-radius: .5rem;">
+						<div class="row g-0">
+							<div class="col-md-4 gradient-custom text-center text-white"
+								style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+								<img th:src="@{http://3.108.237.172:8080/HireMeNow/uploads/{logo}(logo=${company.logo})}"
+									alt="Not Found" class="img-fluid my-5 img rounded-circle" style="width:19rem;" />
+								<h5 th:text="${company.companyName}"></h5>
+								<p th:text="${company.url}"></p>
+								<i class="far fa-edit mb-5"></i>
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+									data-bs-target="#myModal">
+									<i class="bi bi-pen"></i>
+								</button>
+							</div>
+							<div class="col-md-8">
+								<div class="card-body p-4">
+									<h6 style="color: black;">Company Id: <span style="color: red;"
+											th:text="${company.companyId}"></span>
+									</h6>
+									<hr class="mt-0 mb-4" style="color: black;">
+									<div class="row pt-1">
+										<div class="col-6 mb-3">
+											<h6 style="color: black;">Email</h6>
+											<p class="text-muted" th:text="${company.email}"></p>
+										</div>
+										<div class="col-6 mb-3">
+											<h6 style="color: black;">Phone</h6>
+											<p class="text-muted" th:text="${company.mobile}"></p>
+										</div>
+									</div>
+									<hr style="color: black;" class="mt-0 mb-4">
+									<div class="row pt-1">
+										<div class="col-6 mb-3">
+											<h6 style="color: black;"> Company Level</h6>
+											<p class="text-muted" th:text="${company.companyLevel}"></p>
+										</div>
+										<div class="col-6 mb-3">
+											<h6 style="color: black;">Register Date</h6>
+											<p class="text-muted" th:text="${company.regDate}"></p>
+										</div>
+									</div>
+									<hr class="mt-0 mb-4" style="color: black;">
+									<div class="row pt-1">
+										<div class="col-6 mb-3">
+											<h6 style="color: black;">Location</h6>
+											<p class="text-muted" th:text="${company.location}"></p>
+										</div>
+										<div class="col-6 mb-3">
+											<h6 style="color: black;">City</h6>
+											<p class="text-muted" th:text="${company.city}"></p>
+										</div>
+									</div>
+									<hr class="mt-0 mb-4" style="color: black;">
+									<div class="row pt-1">
+										<div class="col-6 mb-3">
+											<h6 style="color: black;">State</h6>
+											<p class="text-muted" th:text="${company.state}"></p>
+										</div>
+										<div class="col-6 mb-3">
+											<h6 style="color: black;">Password</h6>
+											<p class="text-muted" th:text="${company.password}"></p>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><br>
+	<!-- Your existing HTML code -->
+
+	<!-- Bootstrap modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title text text-center" id="exampleModalLabel" style="color: black;">Edit Your
+						Profile Pic</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<center>
+
+						<img th:src="@{http://3.108.237.172:8080/HireMeNow/uploads/{logo}(logo=${company.logo})}" alt="Not Found"
+							class="img-fluid my-5 img rounded-circle" style="width:19rem;" />
+					</center>
+					<form th:action="@{updatePic}" method="post" enctype="multipart/form-data" th:object="${company}">
+						<div class="form-group">
+							<input type="hidden" name="companyId" th:field="*{companyId}" class="form-control"
+								readonly />
+
+							<label for="logo">Logo</label>
+							<input type="file" name="logo1" class="form-control" required>
+						</div>
+
+						<div class="form-group">
+							<label for="companyName">Company Name</label>
+							<input type="text" name="companyName" th:field="*{companyName}" class="form-control"
+								required>
+						</div>
+
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" name="email" th:field="*{email}" class="form-control" readonly>
+						</div>
+
+						<div class="form-group">
+							<label for="mobile">Mobile</label>
+							<input type="text" name="mobile" th:field="*{mobile}" class="form-control" required>
+						</div>
+
+						<div class="form-group">
+							<label for="location">Location</label>
+							<input type="text" name="location" th:field="*{location}" class="form-control">
+						</div>
+
+
+						<input type="hidden" name="regDate" th:field="*{regDate}" class="form-control">
+
+
+						<div class="form-group">
+							<label for="city">City</label>
+							<input type="text" name="city" th:field="*{city}" class="form-control">
+						</div>
+
+						<div class="form-group">
+							<label for="state">State</label>
+							<input type="text" name="state" th:field="*{state}" class="form-control">
+						</div>
+
+						<div class="form-group">
+							<label for="companyLevel">Company Level</label>
+							<input type="text" name="companyLevel" th:field="*{companyLevel}" class="form-control">
+						</div>
+
+						<div class="form-group">
+							<label for="url">URL</label>
+							<input type="text" name="url" th:field="*{url}" class="form-control">
+						</div>
+
+
+
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="text" name="password" th:field="*{password}" class="form-control" required>
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div th:replace="footer::foot" class="mt-4"></div>

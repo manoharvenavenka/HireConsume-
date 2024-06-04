@@ -1,0 +1,43 @@
+<html xmlns="http://www.thymeleaf.org">
+<html>
+
+<head th:replace="head::includes">
+
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<headere th:replace="headers::header"></headere>
+	<div th:replace="jobseekernav::jobseekernav"></div>
+	<h2 class="text text-center mt-4 mb-4">Applay Job Application</h2>
+	<div class="card mb-5">
+		<div class="card-body">
+			<form th:action="@{/jobseeker/addingJobApplay}" th:object="${jobapplay}" method="post">
+
+				<!-- Assuming jobapplay has jobsekers and vacancy properties -->
+				<div class="form-group">
+					<label for="jobsekers">UserId:</label>
+					<select class="form-control" id="jobsekers" th:field="*{jobsekers.userId}">
+						<option th:value="${userId}" th:text="${userId}"></option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="vacancy">Vacancy:</label>
+					<select class="form-control" id="vacancy" th:field="*{vacancy.vacancyId}">
+						<option th:value="${vacancyId}" th:text="${vacancyId}"></option>
+					</select>
+				</div>
+				<center>
+					
+				<button type="submit" class="btn btn-primary mt-5 mb-4">Submit</button>
+				</center>
+			</form>
+		</div>
+	</div>
+	<div th:replace="footer::foot" class="mt-4"></div>
+
+</body>
+
+</html>

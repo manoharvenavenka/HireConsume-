@@ -1,0 +1,66 @@
+<html xmlns="http://www.thymeleaf.org">
+<html>
+
+<head th:replace="head::includes">
+
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<headere th:replace="headers::header"></headere>
+	<div th:replace="jobseekernav::jobseekernav"></div>
+
+<div style="overflow-x:auto;">
+    <div class="alert" th:if="${param.message != null}" style="padding: 20px; background-color:#70c22b; color: white; margin-bottom: 15px;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin-left: 15px; color: white; font-weight: bold; float: right; font-size: 22px; line-height: 20px; cursor: pointer; transition: 0.3s;">&times;</span>
+        <span th:text="${param.message}" style="color: white;"></span>
+    </div>
+</div>
+
+
+
+	<div class="container mt-5 mb-5">
+		<div class="card">
+			<div class="card-header">
+				<h2 class="card-title text text-center mt-2 mb-2 " style="color: black;">Add Documents</h2>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/jobseeker/addingDoc}" th:object="${Documents}" method="post"
+					enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="jobsekers">UserId:</label>
+						<select class="form-control" id="jobsekers" th:field="*{jobsekers.userId}">
+							<option th:value="${userId}" th:text="${userId}"></option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="documentType">Document Type</label>
+						<select class="form-control" id="documentType" name="documentType" required>
+							<option value="Resume">Resume</option>
+							<option value="Ssc">Ssc</option>
+							<option value="OD">OD</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="documentFile">Document File</label>
+						<input type="file" class="form-control" name="doc1" accept=".pdf,.doc,.docx">
+					</div>
+					<!-- You can add more fields if needed -->
+					<center>
+
+						<button type="submit" class="btn btn-primary mt-5 mb-4">Submit</button>
+					</center>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="footer::foot" class="mt-4"></div>
+
+</body>
+
+</html>

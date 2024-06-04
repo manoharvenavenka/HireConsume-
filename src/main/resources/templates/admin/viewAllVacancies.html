@@ -1,0 +1,42 @@
+<html xmlns="http://www.thymeleaf.org">
+<head th:replace="head::includes"></head>
+<body>
+    <header th:replace="headers::header"></header>
+    <div th:replace="adminnav::adminnav"></div>
+    
+    <div class="container mt-4">
+        <div class="table-responsive" style="border-radius: 2rem;"> <!-- Set the background color here -->
+            <table class="table table-striped table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>Vacancy ID</th>
+                        <th>Company Name</th>
+                        <th>Post Date</th>
+                        <th>Job Title</th>
+                        <th>Description</th>
+                        <th>Requirements</th>
+                        <th>No. of Vacancies</th>
+                        <th>Open Date</th>
+                        <th>Close Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="vacancy: ${vacancylist}" >
+                        <td th:text="${vacancy.vacancyId}"></td>
+                        <td th:text="${vacancy.company.companyName}"></td>
+                        <td th:text="${vacancy.postDate}"></td>
+                        <td th:text="${vacancy.jobTitle}"></td>
+                        <td th:text="${vacancy.description}"></td>
+                        <td th:text="${vacancy.requirements}"></td>
+                        <td th:text="${vacancy.noOfVacancies}"></td>
+                        <td th:text="${vacancy.openDate}"></td>
+                        <td th:text="${vacancy.closeDate}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div th:replace="footer::foot" class="mt-4"></div>
+</body>
+</html>

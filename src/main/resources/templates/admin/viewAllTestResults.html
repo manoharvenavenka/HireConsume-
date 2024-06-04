@@ -1,0 +1,38 @@
+<html xmlns="http://www.thymeleaf.org">
+<head th:replace="head::includes"></head>
+<body>
+    <header th:replace="headers::header"></header>
+    <div th:replace="adminnav::adminnav"></div>
+    
+    <div class="container mt-4">
+        <div class="table-responsive" style="border-radius: 2rem;">
+            <table class="table table-striped  table-hover">
+                <thead style="background-color: purple;color: white;">
+                    <tr>
+                        <th>Test Result ID</th>
+                        <th>Job Seeker Name</th>
+                        <th>Vacancy Title</th>
+                        <th>Question</th>
+                        <th>Selected Option</th>
+                        <th>Result</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody style="background-color:rgb(255, 255, 255) ;">
+                    <tr th:each="result : ${testresutList}">
+                        <td th:text="${result.resultId}"></td>
+                        <td th:text="${result.jobsekers.firstName + ' ' + result.jobsekers.lastName}"></td>
+                        <td th:text="${result.vacancy.jobTitle}"></td>
+                        <td th:text="${result.questions.question}"></td>
+                        <td th:text="${result.selectedOption}"></td>
+                        <td th:text="${result.result}"></td>
+                        <td th:text="${result.score}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div th:replace="footer::foot" class="mt-4"></div>
+</body>
+</html>
